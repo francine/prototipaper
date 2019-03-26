@@ -5,7 +5,9 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'axios',
-      'browser'
+      'browser',
+      'vue2-filters',
+      'filters'
     ],
     css: [
       'app.styl'

@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "siren-parser": "^8.0.0"
+    "moment": "^2.24.0",
+    "siren-parser": "^8.0.0",
+    "vue2-filters": "^0.5.1"
   },
   "devDependencies": {
     "@vue/eslint-config-standard": "^4.0.0",

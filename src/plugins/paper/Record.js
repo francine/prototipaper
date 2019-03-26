@@ -3,6 +3,10 @@ export default class Record {
     this.store = store
   }
 
+  get properties () {
+    return this.self.properties
+  }
+
   get self () {
     var entity = this.store.state.paper.entity
     if (entity) {
@@ -19,11 +23,15 @@ export default class Record {
     return []
   }
 
-  get properties () {
-    var entities = this.store.state.paper.properties
-    if (entities) {
-      return entities
+  get propertiesHeaders () {
+    if (this.self && this.self.properties) {
+      return this.self.properties.__headers.record
     }
     return []
+  }
+
+  get headers () {
+    var headers = this.store.getters['paper/getHeaders']
+    return headers
   }
 }

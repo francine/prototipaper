@@ -5,24 +5,32 @@
         | {{ title }}
       q-item(
         v-for="item in items"
-        :key="item.name"
+        :key="item"
       )
-        q-item-main(:label="item.title")
-        q-item-side(right)
-          q-item-tile(
-            icon="chat_bubble"
-            color="green"
-          )
+        q-item-main
+          q-item-tile(label)
+            q-paper-label(
+              :name="item"
+              isKey
+            )
+          q-item-tile(sublabel)
+            q-paper-label(:name="item")
 </template>
 
 <style>
 </style>
 
 <script>
+import QPaperLabel from '../components/paper/QPaperLabel.vue'
 export default {
   data: () => ({
-    viewShow: ''
+    viewShow: '',
+    amount: 12345
   }),
+
+  components: {
+    QPaperLabel
+  },
 
   created () {
     var url = '/statics/demo/record.json'
@@ -30,12 +38,13 @@ export default {
   },
 
   computed: {
-    items () {
-      return this.$browser.record.records
-    },
-
     title () {
       return this.$browser.title
+    },
+
+    items () {
+      var properties = this.$browser.record.propertiesHeaders
+      return properties
     }
   }
 }

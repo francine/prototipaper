@@ -92,7 +92,7 @@
       "properties":{  
         "name":"price",
         "title":"Price",
-        "dataType":"number"
+        "dataType":"decimal"
       }
     },
     {  
