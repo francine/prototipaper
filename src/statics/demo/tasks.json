@@ -114,7 +114,7 @@
           "properties":{  
             "name":"price",
             "title":"Price",
-            "dataType":"number"
+            "dataType":"decimal"
           }
         },
         {  
@@ -193,7 +193,7 @@
           "rel":[  
             "record"
           ],
-          "properties":{  
+          "properties":{
             "name":"id",
             "title":"Id",
             "dataType":"number"
@@ -252,7 +252,7 @@
           "properties":{  
             "name":"price",
             "title":"Price",
-            "dataType":"number"
+            "dataType":"decimal"
           }
         },
         {  
@@ -396,7 +396,7 @@
       "properties":{  
         "name":"price",
         "title":"Price",
-        "dataType":"number",
+        "dataType":"decimal",
         "order":0
       },
       "links":[  
@@ -490,7 +490,7 @@
           "name":"form.form.price",
           "type":"number",
           "title":"Price",
-          "__dataType":"number"
+          "__dataType":"decimal"
         },
         {  
           "name":"form.form.active",
