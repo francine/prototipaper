@@ -31,7 +31,7 @@
 </style>
 
 <script>
-import QPaperLabel from '../components/paper/QPaperLabel.vue'
+import QPaperLabel from '../components/PaperLabel.vue'
 export default {
   components: {
     QPaperLabel
@@ -39,17 +39,17 @@ export default {
 
   computed: {
     title () {
-      return this.$browser.title
+      return this.$paper.title
     },
 
     items () {
-      return this.$browser.record.headers.properties
+      return this.$paper.record.headers.properties
     }
   },
 
   methods: {
     getProperty (property) {
-      return this.$browser.record.getProperty(property)
+      return this.$paper.record.getProperty(property)
     }
   }
 }

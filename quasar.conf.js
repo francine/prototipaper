@@ -5,7 +5,7 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'axios',
-      'browser',
+      'paper',
       'vue2-filters',
       'filters'
     ],
@@ -60,6 +60,8 @@ module.exports = function (ctx) {
         'QLayoutDrawer',
         'QList',
         'QListHeader',
+        'QModal',
+        'QModalLayout',
         'QPageContainer',
         'QPage',
         'QTable',
@@ -71,7 +73,8 @@ module.exports = function (ctx) {
         'QTd'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [

@@ -1,37 +1,50 @@
 <template lang="pug">
-  q-table(
-    :title="title"
-    :data="items"
-    :columns="columns"
-    :config="config"
-    row-key="id"
-    no-data-label="Não existem dados para exibir."
-    no-results-label="Nenhum registro foi encontrado."
-    loading-label="Carregando..."
-    rows-per-page-label="Itens por página"
-    hide-bottom
-  )
-    q-tr(
-      slot="body"
-      slot-scope="props"
-      :props="props"
+  div(class="q-pa-lg")
+    div(
+      xs12
+      sm12
+      md8
+      offset-md2
     )
-      q-td(
-        v-for="col in props.cols"
-        :key="col.name"
-        :props="props"
-      )
-        q-paper-label(
-          :name="col.name"
-          :value="props.row[col.name]"
+      q-page(class="self-center")
+
+        div
+          div(class="headline")
+            | {{ title }}
+
+        q-table(
+          :title="title"
+          :data="items"
+          :columns="columns"
+          :config="config"
+          row-key="id"
+          no-data-label="Não existem dados para exibir."
+          no-results-label="Nenhum registro foi encontrado."
+          loading-label="Carregando..."
+          rows-per-page-label="Itens por página"
+          hide-bottom
         )
+          q-tr(
+            slot="body"
+            slot-scope="props"
+            :props="props"
+          )
+            q-td(
+              v-for="col in props.cols"
+              :key="col.name"
+              :props="props"
+            )
+              q-paper-label(
+                :name="col.name"
+                :value="props.row[col.name]"
+              )
 </template>
 
 <style>
 </style>
 
 <script>
-import QPaperLabel from '../components/paper/QPaperLabel.vue'
+import QPaperLabel from '../components/PaperLabel.vue'
 export default {
   data: () => ({
     config: {
@@ -54,16 +67,16 @@ export default {
 
   computed: {
     items () {
-      return this.$browser.record.records.properties
+      return this.$paper.record.records.properties
     },
 
     title () {
-      return this.$browser.title
+      return this.$paper.browser.title
     },
 
     columns () {
       var columns = []
-      var headers = this.$browser.record.records.headers
+      var headers = this.$paper.record.records.headers
       if (headers) {
         headers.forEach(header => {
           columns.push({

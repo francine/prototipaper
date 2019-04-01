@@ -15,11 +15,11 @@ export default {
 
   computed: {
     label () {
-      var item = this.$browser.record.headers.getHeader(this.name)
+      var item = this.$paper.record.headers.getHeader(this.name)
       if (this.isKey) {
         return item.title
       }
-      var property = this.$browser.dataType.format(this.value, item.properties.dataType)
+      var property = this.$paper.dataType.format(this.value, item.properties.dataType)
       return property
     }
   }

@@ -1,6 +1,10 @@
 import axios from 'axios'
 
 export default class Requester {
+  constructor (router) {
+    this.router = router
+  }
+
   httpRequest (method, href, params) {
     var getParams = method.toLowerCase() === 'get' ? params : ''
     var header = {

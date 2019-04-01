@@ -458,7 +458,7 @@
   "actions":[  
     {  
       "name":"edit",
-      "title":"Edit",
+      "title":"Editar",
       "method":"POST",
       "href":"http://localhost:8080/Api/1/Paper/Api/Extensions/Papers/SamplePaper/TasksPaper/-Edit?f=json+siren&offset=10&limit=2",
       "fields":[  
@@ -525,7 +525,7 @@
     },
     {  
       "name":"remove",
-      "title":"Remove",
+      "title":"Remover",
       "method":"POST",
       "href":"http://localhost:8080/Api/1/Paper/Api/Extensions/Papers/SamplePaper/TasksPaper/-Remove?f=json+siren&offset=10&limit=2",
       "fields":[  
@@ -562,6 +562,20 @@
         "link"
       ],
       "href":"http://www.google.com"
+    },
+    {  
+      "title":"Tarefa Absoluta",
+      "rel":[  
+        "link"
+      ],
+      "href":"http://localhost:8080/#/demo/task"
+    },
+    {  
+      "title":"Tarefa Relativa",
+      "rel":[  
+        "link"
+      ],
+      "href":"/demo/task"
     },
     {  
       "rel":[  

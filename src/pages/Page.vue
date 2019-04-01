@@ -19,13 +19,13 @@ export default {
   },
 
   created () {
-    this.$browser.page.load(this.demonstrationMode)
+    this.$paper.browser.load(this.demonstrationMode)
   },
 
   computed: {
     dynamicComponent () {
-      switch (this.$browser.page.type) {
-        case this.$browser.page.pageTypeEnum.GRID:
+      switch (this.$paper.browser.type) {
+        case this.$paper.browser.pageTypeEnum.GRID:
           return PaperGrid
         default:
           return PaperView

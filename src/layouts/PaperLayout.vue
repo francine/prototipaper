@@ -1,60 +1,46 @@
-<template>
-  <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
-      <q-toolbar color="primary">
-        <q-btn
+<template lang="pug">
+  q-layout(view="lHh Lpr lFf")
+    q-layout-header
+      q-toolbar(color="primary")
+        q-toolbar-title
+          | Prototipaper
+
+        q-btn(
           flat
-          dense
           round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
-
-        <q-toolbar-title>
-          Prototipaper
-        </q-toolbar-title>
-
-        <q-btn
-          flat round dense
-          @click="rightDrawerOpen = !rightDrawerOpen"
+          dense
+          v-if="showNavigation"
+          @click="openDrawerNavigation()"
           icon="menu"
-        />
-      </q-toolbar>
-    </q-layout-header>
+        )
 
-    <q-layout-drawer
-      v-model="leftDrawerOpen"
-      side="left"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-    >
-    </q-layout-drawer>
-    <q-layout-drawer
-      side="right"
-      v-model="rightDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-    >
-    </q-layout-drawer>
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+    paper-drawer-navigation(
+      ref="paperDrawerNavigation"
+    )
+
+    q-page-container
+      router-view
 </template>
 
 <script>
-import { openURL } from 'quasar'
-
+import PaperDrawerNavigation from '../components/PaperDrawerNavigation'
 export default {
-  name: 'MyLayout',
-  data () {
-    return {
-      leftDrawerOpen: this.$q.platform.is.desktop,
-      rightDrawerOpen: this.$q.platform.is.desktop
+  components: {
+    PaperDrawerNavigation
+  },
+
+  computed: {
+    showNavigation () {
+      var hasLinks = this.$paper.browser.hasLinks()
+      var hasActions = this.$paper.browser.hasActions()
+      return hasLinks || hasActions
     }
   },
+
   methods: {
-    openURL
+    openDrawerNavigation () {
+      this.$refs.paperDrawerNavigation.drawer = !this.$refs.paperDrawerNavigation.drawer
+    }
   }
 }
 </script>
