@@ -5,10 +5,13 @@
 <script>
 import PaperGrid from './Grid.vue'
 import PaperView from './View.vue'
+import PaperForm from './Form.vue'
+
 export default {
   components: {
     PaperGrid,
-    PaperView
+    PaperView,
+    PaperForm
   },
 
   props: {
@@ -19,11 +22,19 @@ export default {
   },
 
   created () {
-    this.$paper.browser.load(this.demonstrationMode)
+    if (this.demonstrationMode) {
+      this.$paper.browser.loadDemonstration()
+      return
+    }
+    this.$paper.browser.load()
   },
 
   computed: {
     dynamicComponent () {
+      // Verifica se deve exibir um formulário
+      if (this.$paper.browser.isFormMode()) {
+        return PaperForm
+      }
       switch (this.$paper.browser.type) {
         case this.$paper.browser.pageTypeEnum.GRID:
           return PaperGrid

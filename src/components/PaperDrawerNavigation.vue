@@ -24,25 +24,18 @@
         v-for="action in actions"
         :key="action.href"
         link
-        @click.native="openForm(action.href)"
+        @click.native="openAction(action.href)"
       )
         q-item-main(
           :label="action.title"
         )
-
-    paper-modal-actions(ref="paperModalActions")
 </template>
 
 <script>
-import PaperModalActions from './PaperModalActions.vue'
 export default {
   data: () => ({
-    drawer: true
+    drawer: false
   }),
-
-  components: {
-    PaperModalActions
-  },
 
   computed: {
     links () {
@@ -71,8 +64,16 @@ export default {
       this.$paper.browser.openUrl(link)
     },
 
-    openForm (link) {
-      this.$refs.paperModalActions.opened = true
+    openAction (link) {
+      var selected = this.$paper.browser.selected
+      if (selected && selected.length > 0) {
+        this.$paper.browser.openUrl(link)
+      } else {
+        this.$q.dialog({
+          title: 'Nenhum registro selecionado',
+          message: 'Selecione pelo menos um registro para continuar.'
+        })
+      }
     }
   }
 }

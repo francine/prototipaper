@@ -4,7 +4,7 @@ export default class DataType {
     this.BIT = 'bit'
     this.BOOLEAN = 'boolean'
     this.BOOL = 'bool'
-    this.NUMBER = 'numbr'
+    this.NUMBER = 'number'
     this.INT = 'int'
     this.LONG = 'long'
     this.DECIMAL = 'decimal'
@@ -13,6 +13,11 @@ export default class DataType {
     this.CURRENCY = 'currency'
     this.STRING = 'string'
     this.DATETIME = 'datetime'
+    this.DATE = 'date'
+    this.TIME = 'time'
+    this.TEXT = 'text'
+    this.HIDDEN = 'hidden'
+    this.CHECKBOX = 'checkbox'
 
     this.filters = filters
   }
@@ -30,5 +35,13 @@ export default class DataType {
         break
     }
     return value
+  }
+
+  isString (item) {
+    if (item.properties) {
+      var isString = item.properties.dataType === this.STRING || item.properties.dataType === this.TEXT
+      return isString
+    }
+    return false
   }
 }

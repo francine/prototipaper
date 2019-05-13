@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { openURL } from 'quasar'
 
 export default class Requester {
   constructor (router) {
@@ -39,5 +40,31 @@ export default class Requester {
         data: error.response
       }
     })
+  }
+
+  openUrl (url) {
+    if (url) {
+      var isExternal = this.isExternalUrl(url)
+      if (isExternal) {
+        openURL(url)
+        return
+      }
+      var isAbsolute = this.isAbsoluteUrl(url)
+      if (isAbsolute) {
+        window.location = url
+        return
+      }
+      this.router.push(url)
+    }
+  }
+
+  isAbsoluteUrl (url) {
+    var isAbsoluteUrl = require('is-absolute-url')
+    return isAbsoluteUrl(url)
+  }
+
+  isExternalUrl (url) {
+    var isUrlExternal = require('is-url-external')
+    return isUrlExternal(url)
   }
 }

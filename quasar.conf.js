@@ -14,17 +14,15 @@ module.exports = function (ctx) {
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
-      'material-icons' // optional, you are not bound to it
-      // 'ionicons',
-      // 'mdi',
-      // 'fontawesome'
+      'material-icons',
+      'fontawesome'
     ],
     supportIE: false,
     build: {
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,
-      // gzip: true,
+      gzip: true,
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
@@ -49,7 +47,12 @@ module.exports = function (ctx) {
     framework: {
       components: [
         'QBtn',
+        'QBtnDropdown',
+        'QCheckbox',
+        'QContextMenu',
+        'QField',
         'QIcon',
+        'QInput',
         'QItem',
         'QItemMain',
         'QItemSeparator',
@@ -64,6 +67,8 @@ module.exports = function (ctx) {
         'QModalLayout',
         'QPageContainer',
         'QPage',
+        'QPopover',
+        'QScrollArea',
         'QTable',
         'QTableColumns',
         'QToolbar',
@@ -78,7 +83,8 @@ module.exports = function (ctx) {
       ],
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Dialog'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language

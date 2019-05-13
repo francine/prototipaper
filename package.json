@@ -17,6 +17,7 @@
     "is-url-external": "^1.0.3",
     "moment": "^2.24.0",
     "siren-parser": "^8.0.0",
+    "v-money": "^0.8.1",
     "vue2-filters": "^0.5.1"
   },
   "devDependencies": {

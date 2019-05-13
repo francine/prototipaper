@@ -1,7 +1,7 @@
 <template lang="pug">
   q-modal(
     v-model="opened"
-    :content-css="{minWidth: '80vw', minHeight: '80vh'}"
+    :content-css="{ minWidth: '80vw', minHeight: '80vh' }"
   )
     q-modal-layout
       q-toolbar(slot="header")
@@ -16,7 +16,7 @@
           Header
 
       div(class="layout-padding")
-        h1 Modal
+        h1 {{ action.title }}
 
         q-btn(
           color="primary"
@@ -31,6 +31,13 @@
 export default {
   data: () => ({
     opened: false
-  })
+  }),
+
+  computed: {
+    action () {
+      var action = this.$paper.browser.action
+      return action
+    }
+  }
 }
 </script>

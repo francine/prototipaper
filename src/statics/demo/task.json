@@ -134,37 +134,37 @@
         {  
           "name":"form.changes.name",
           "type":"text",
-          "title":"Name",
+          "title":"Nome",
           "__dataType":"text"
         },
         {  
           "name":"form.changes.description",
           "type":"text",
-          "title":"Description",
+          "title":"Descrição",
           "__dataType":"text"
         },
         {  
           "name":"form.changes.age",
           "type":"number",
-          "title":"Age",
+          "title":"Idade",
           "__dataType":"number"
         },
         {  
           "name":"form.changes.date",
           "type":"datetime",
-          "title":"Date",
+          "title":"Data",
           "__dataType":"datetime"
         },
         {  
           "name":"form.changes.price",
           "type":"number",
-          "title":"Price",
+          "title":"Preço",
           "__dataType":"number"
         },
         {  
           "name":"form.changes.active",
           "type":"text",
-          "title":"Active",
+          "title":"Ativo",
           "__dataType":"bool"
         },
         {  

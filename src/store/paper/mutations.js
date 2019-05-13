@@ -8,3 +8,7 @@ export const parseSiren = (state, data) => {
     state.entities = state.entity.getSubEntitiesByRel('record')
   }
 }
+
+export const setSelected = (state, data) => {
+  state.selected = data
+}

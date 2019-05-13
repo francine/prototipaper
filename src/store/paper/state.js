@@ -1,4 +1,5 @@
 export default {
   entity: '',
-  entities: []
+  entities: [],
+  selected: []
 }

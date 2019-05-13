@@ -1,6 +1,6 @@
 import PageTypeEnum from './PageType.js'
 import Requester from './Requester.js'
-import { Notify, openURL } from 'quasar'
+import { Notify } from 'quasar'
 
 export default class Browser {
   constructor (store, router) {
@@ -8,6 +8,15 @@ export default class Browser {
     this.router = router
     this.pageTypeEnum = PageTypeEnum
     this.requester = new Requester(router)
+    this.pagination = new Pagination(store, this.requester)
+    this.action = new Action(store, this.router, this.requester)
+  }
+
+  get title () {
+    var entity = this.store.state.paper.entity
+    if (entity) {
+      return entity.title
+    }
   }
 
   get type () {
@@ -36,20 +45,16 @@ export default class Browser {
     }
   }
 
-  get filters () {
-    if (this.hasSelfLink()) {
-      var entity = this.store.state.paper.entity
-      var filters = entity.getActionByName('__filters')
-      return filters
-    }
-  }
-
   get actions () {
     var entity = this.store.state.paper.entity
     if (entity && entity.actions) {
       var actions = entity.actions.filter(action => action.name !== '__filter')
       return actions
     }
+  }
+
+  get selected () {
+    return this.store.state.paper.selected
   }
 
   hasActions () {
@@ -71,19 +76,38 @@ export default class Browser {
     }
   }
 
-  hasFilters () {
-    var entity = this.store.state.paper.entity
-    if (entity) {
-      return entity.hasActionByName('__filters')
-    }
+  loadDemonstration () {
+    var routeName = this.router.currentRoute.params.routeName
+    var rootRouteName = routeName.match(/^([^/]+)/)[0]
+    var url = `/statics/demo/${rootRouteName}.json`
+    this._load(url)
   }
 
-  load (demonstrationMode) {
+  load () {
     var url = this.router.currentRoute.path
-    if (demonstrationMode) {
-      var demoRouteName = this.router.currentRoute.params.routeName
-      url = `/statics/demo/${demoRouteName}.json`
+    if (this.isFormMode()) {
+      url = url.substring(0, url.lastIndexOf('/'))
     }
+    this._load(url)
+  }
+
+  openUrl (url) {
+    this.requester.openUrl(url)
+  }
+
+  isFormMode () {
+    var route = this.router.currentRoute.path
+    var lastIndex = route.lastIndexOf('/') + 1
+    var lastURLSegment = route.substr(lastIndex)
+    var isFormMode = lastURLSegment && lastURLSegment.startsWith('-')
+    return isFormMode
+  }
+
+  setSelected (selected) {
+    this.store.commit('paper/setSelected', selected)
+  }
+
+  _load (url) {
     this.requester.httpRequest('get', url, this.router.currentRoute.query).then(response => {
       if (response.ok) {
         try {
@@ -98,30 +122,123 @@ export default class Browser {
       }
     })
   }
+}
 
-  openUrl (url) {
-    if (url) {
-      var isExternal = this.isExternalUrl(url)
-      if (isExternal) {
-        openURL(url)
-        return
-      }
-      var isAbsolute = this.isAbsoluteUrl(url)
-      if (isAbsolute) {
-        window.location = url
-        return
-      }
-      this.router.push(url)
+class Pagination {
+  constructor (store, requester) {
+    this.store = store
+    this.requester = requester
+  }
+
+  get firstPage () {
+    if (this.hasFirstPage) {
+      var entity = this.store.state.paper.entity
+      return entity.getLinkByRel('first')
     }
   }
 
-  isAbsoluteUrl (url) {
-    var isAbsoluteUrl = require('is-absolute-url')
-    return isAbsoluteUrl(url)
+  get nextPage () {
+    if (this.hasNextPage) {
+      var entity = this.store.state.paper.entity
+      return entity.getLinkByRel('next')
+    }
   }
 
-  isExternalUrl (url) {
-    var isUrlExternal = require('is-url-external')
-    return isUrlExternal(url)
+  get previousPage () {
+    if (this.hasPreviousPage) {
+      var entity = this.store.state.paper.entity
+      return entity.getLinkByRel('prev')
+    }
+  }
+
+  hasNextPage () {
+    var entity = this.store.state.paper.entity
+    if (entity) {
+      return entity.hasLinkByRel('next')
+    }
+  }
+
+  hasPreviousPage () {
+    var entity = this.store.state.paper.entity
+    if (entity) {
+      return entity.hasLinkByRel('prev')
+    }
+  }
+
+  hasFirstPage () {
+    var entity = this.store.state.paper.entity
+    if (entity) {
+      return entity.hasLinkByRel('first')
+    }
+  }
+
+  goToFirstPage () {
+    this.requester.openUrl(this.firstPage.href)
+  }
+
+  goToNextPage () {
+    this.requester.openUrl(this.nextPage.href)
+  }
+
+  goToPreviousPage () {
+    this.requester.openUrl(this.previousPage.href)
+  }
+}
+
+class Action {
+  constructor (store, router, requester) {
+    this.store = store
+    this.router = router
+    this.requester = requester
+  }
+
+  get current () {
+    var entity = this.store.state.paper.entity
+    var actionName = this.getName()
+    if (entity && entity.hasActionByName(actionName)) {
+      var action = entity.getActionByName(actionName)
+      return action
+    }
+  }
+
+  get title () {
+    if (this.current) {
+      return this.current.title
+    }
+    return ''
+  }
+
+  get fields () {
+    if (this.current) {
+      return this.current.fields
+    }
+    return []
+  }
+
+  get link () {
+    if (this.current) {
+      return this.current.href
+    }
+  }
+
+  get method () {
+    if (this.current) {
+      return this.current.method
+    }
+    return 'POST'
+  }
+
+  get placeholder () {
+    console.log('this.current', this.current)
+  }
+
+  getName () {
+    var route = this.router.currentRoute.path
+    var lastIndex = route.lastIndexOf('/') + 1
+    var actionName = route.substr(lastIndex)
+    if (actionName && actionName.startsWith('-')) {
+      actionName = actionName.substr(1)
+      return actionName.toLowerCase()
+    }
   }
 }
