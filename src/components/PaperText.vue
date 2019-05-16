@@ -24,6 +24,12 @@ export default {
       }
       return ''
     }
+  },
+
+  methods: {
+    clear () {
+      this.field.value = ''
+    }
   }
 }
 </script>

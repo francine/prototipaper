@@ -168,7 +168,7 @@ export default {
             name: header.properties.name,
             type: header.properties.dataType,
             label: header.properties.title,
-            align: this.$paper.dataType.isString(header) ? 'left' : 'center'
+            align: this.$paper.utils.isString(header) ? 'left' : 'center'
           })
         })
       }

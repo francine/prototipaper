@@ -1,10 +1,9 @@
 <template lang="pug">
   q-input(
-    type="number"
     :value="field.value"
     :name="field.name"
     :float-label="field.title"
-    prefix="R$ "
+    prefix="R$"
   )
 </template>
 

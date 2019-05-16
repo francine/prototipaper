@@ -24,8 +24,6 @@ export default {
 
   computed: {
     filters () {
-      console.log('route', this.$router.currentRoute)
-      console.log('parent', this.$parent.$props)
       var filters = this.$paper.form.getFilters()
       return filters
     },

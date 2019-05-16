@@ -45,13 +45,6 @@ export default {
     PaperFiltersNavigation
   },
 
-  props: {
-    demonstrationMode: {
-      type: Boolean,
-      default: false
-    }
-  },
-
   computed: {
     showLinksNavigation () {
       var hasLinks = this.$paper.browser.hasLinks()

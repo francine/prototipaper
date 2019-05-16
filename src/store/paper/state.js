@@ -1,5 +1,6 @@
 export default {
   entity: '',
   entities: [],
-  selected: []
+  selected: [],
+  demonstrationMode: false
 }

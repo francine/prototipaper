@@ -22,10 +22,7 @@ export default {
   },
 
   created () {
-    if (this.demonstrationMode) {
-      this.$paper.browser.loadDemonstration()
-      return
-    }
+    this.$paper.browser.setDemonstrationMode(this.demonstrationMode)
     this.$paper.browser.load()
   },
 

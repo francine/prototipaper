@@ -68,6 +68,7 @@ module.exports = function (ctx) {
         'QPageContainer',
         'QPage',
         'QPopover',
+        'QSelect',
         'QScrollArea',
         'QTable',
         'QTableColumns',

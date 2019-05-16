@@ -42,7 +42,7 @@ export default class Requester {
     })
   }
 
-  openUrl (url) {
+  openUrl (url, params) {
     if (url) {
       var isExternal = this.isExternalUrl(url)
       if (isExternal) {
@@ -51,10 +51,15 @@ export default class Requester {
       }
       var isAbsolute = this.isAbsoluteUrl(url)
       if (isAbsolute) {
+        var existsParams = params && Object.keys(params).length > 0
+        if (existsParams) {
+          url += url.indexOf('?') > -1 ? '&' : '?'
+          url += Object.entries(params).map(([key, val]) => `${key}=${val}`).join('&')
+        }
         window.location = url
         return
       }
-      this.router.push(url)
+      this.router.push({ path: url, query: params })
     }
   }
 

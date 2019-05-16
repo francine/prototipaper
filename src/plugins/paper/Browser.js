@@ -12,6 +12,11 @@ export default class Browser {
     this.action = new Action(store, this.router, this.requester)
   }
 
+  get isDemonstrationMode () {
+    var isDemonstrationMode = this.store.state.paper.demonstrationMode
+    return isDemonstrationMode
+  }
+
   get title () {
     var entity = this.store.state.paper.entity
     if (entity) {
@@ -76,19 +81,29 @@ export default class Browser {
     }
   }
 
-  loadDemonstration () {
-    var routeName = this.router.currentRoute.params.routeName
-    var rootRouteName = routeName.match(/^([^/]+)/)[0]
-    var url = `/statics/demo/${rootRouteName}.json`
-    this._load(url)
-  }
-
   load () {
     var url = this.router.currentRoute.path
+    if (this.isDemonstrationMode) {
+      var routeName = this.router.currentRoute.params.routeName
+      var rootRouteName = routeName.match(/^([^/]+)/)[0]
+      url = `/statics/demo/${rootRouteName}.json`
+    }
     if (this.isFormMode()) {
       url = url.substring(0, url.lastIndexOf('/'))
     }
-    this._load(url)
+    this.requester.httpRequest('get', url, this.router.currentRoute.query).then(response => {
+      if (response.ok) {
+        try {
+          this.store.commit('paper/parseSiren', response.data.data)
+        } catch (err) {
+          console.log('Erro ao converter o siren', err)
+          Notify.create({
+            message: 'Não foi possível carregar a página solicitada.',
+            type: 'negative'
+          })
+        }
+      }
+    })
   }
 
   openUrl (url) {
@@ -107,20 +122,8 @@ export default class Browser {
     this.store.commit('paper/setSelected', selected)
   }
 
-  _load (url) {
-    this.requester.httpRequest('get', url, this.router.currentRoute.query).then(response => {
-      if (response.ok) {
-        try {
-          this.store.commit('paper/parseSiren', response.data.data)
-        } catch (err) {
-          console.log('Erro ao converter o siren', err)
-          Notify.create({
-            message: 'Não foi possível carregar a página solicitada.',
-            type: 'negative'
-          })
-        }
-      }
-    })
+  setDemonstrationMode (demonstrationMode) {
+    this.store.commit('paper/setDemonstrationMode', demonstrationMode)
   }
 }
 

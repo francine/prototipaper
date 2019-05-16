@@ -1718,6 +1718,29 @@
           "href":"http://localhost:8080/Api/1/Paper/Api/Extensions/Papers/SamplePaper/TasksPaper?f=json+siren&offset=10&limit=2&sort=Active"
         }
       ]
+    },
+    {  
+      "class":[  
+        "__filters"
+      ],
+      "title":"Selecione",
+      "rel":[  
+        "table"
+      ],
+      "properties":{  
+        "name":"select",
+        "title":"Selecione",
+        "dataType":"multi",
+        "order":0
+      },
+      "links":[  
+        {  
+          "rel":[  
+            "sort"
+          ],
+          "href":"http://localhost:8080/Api/1/Paper/Api/Extensions/Papers/SamplePaper/TasksPaper?f=json+siren&offset=10&limit=2&sort=Active"
+        }
+      ]
     }
   ],
   "actions":[  
@@ -1821,7 +1844,7 @@
     },
     {
       "name":"__filters",
-      "method":"POST",
+      "method":"GET",
       "title":"Filtrar",
       "href":"http://localhost:8080/#/demo/tasks_filter",
       "type":"application/x-www-form-urlencoded",
@@ -1870,32 +1893,32 @@
             "dataType":"multi",
             "value": {
               "items": [{
-                "title": "Item 1",
+                "label": "Item 1",
                 "value": "1",
                 "selected": true
               },
               {
-                "title": "Item 2",
+                "label": "Item 2",
                 "value": "2",
                 "selected": false
               },
               {
-                "title": "Item 3",
+                "label": "Item 3",
                 "value": "3",
                 "selected": false
               },
               {
-                "title": "Item 4",
+                "label": "Item 4",
                 "value": "4",
                 "selected": false
               },
               {
-                "title": "Item 5",
+                "label": "Item 5",
                 "value": "5",
                 "selected": false
               },
               {
-                "title": "Item 6",
+                "label": "Item 6",
                 "value": "6",
                 "selected": false
               }]
